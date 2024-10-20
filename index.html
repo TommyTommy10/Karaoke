@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Karaoke Disco</title>
+  <title>Karaoke App</title>
   <style>
     body {
       background: black;
@@ -22,10 +22,15 @@
       height: 100vh;
       z-index: -1;
     }
+    #songInput {
+      font-size: 1.2em;
+      padding: 10px;
+      margin-top: 20px;
+      width: 80%;
+    }
   </style>
 </head>
 <body>
-  <h1>Karaoke Disco</h1>
   <input type="text" id="songInput" placeholder="Inserisci il titolo della canzone">
   <div id="lyrics">Inserisci il titolo della canzone...</div>
   <canvas id="background" class="effect"></canvas>
