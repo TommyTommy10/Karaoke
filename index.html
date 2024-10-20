@@ -40,21 +40,25 @@
     const lyricsDiv = document.getElementById('lyrics');
     const songInput = document.getElementById('songInput');
     
-    // Integrazione con API per testi delle canzoni
     async function fetchLyrics(song) {
-      const response = await fetch(`https://api.lyrics.ovh/v1/${song}`);
+      const apiUrl = `https://api.genius.com/search?q=${encodeURIComponent(song)}&access_token=YOUR_GENIUS_API_TOKEN`;
+      const response = await fetch(apiUrl);
       if (response.ok) {
         const data = await response.json();
-        return data.lyrics || "Testo della canzone non trovato!";
+        if (data.response.hits.length > 0) {
+          const lyricsPath = data.response.hits[0].result.url;
+          lyricsDiv.innerHTML = `Testo trovato su: <a href="${lyricsPath}" target="_blank">${lyricsPath}</a>`;
+        } else {
+          lyricsDiv.innerHTML = "Testo della canzone non trovato!";
+        }
+      } else {
+        lyricsDiv.innerHTML = "Errore nel recupero del testo!";
       }
-      return "Errore nel recupero del testo!";
     }
 
-    // Evento per aggiornare il testo quando si inserisce un titolo
     songInput.addEventListener('input', async () => {
       const songTitle = songInput.value;
-      const lyrics = await fetchLyrics(songTitle);
-      lyricsDiv.innerHTML = lyrics.replace(/\n/g, '<br>');
+      fetchLyrics(songTitle);
     });
 
     // Effetti luminosi
