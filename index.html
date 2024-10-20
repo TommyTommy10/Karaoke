@@ -26,14 +26,17 @@
 </head>
 <body>
   <h1>Karaoke Disco</h1>
+  <input type="text" id="songInput" placeholder="Inserisci il titolo della canzone">
   <div id="lyrics">Inserisci il titolo della canzone...</div>
   <canvas id="background" class="effect"></canvas>
   <script>
     const lyricsDiv = document.getElementById('lyrics');
+    const songInput = document.getElementById('songInput');
     
     // Esempio di testi delle canzoni
     const songs = {
-      "example song": "Questi sono i testi della tua canzone!"
+      "example song": "Questi sono i testi della tua canzone!",
+      "altra canzone": "Ecco un altro esempio di testo!"
     };
 
     // Funzione per cambiare il testo della canzone
@@ -41,10 +44,10 @@
       lyricsDiv.innerHTML = songs[song.toLowerCase()] || "Testo della canzone non trovato!";
     }
 
-    // Cambia testo ogni 3 secondi come esempio
-    setInterval(() => {
-      updateLyrics('example song');
-    }, 3000);
+    // Evento per aggiornare il testo quando si inserisce un titolo
+    songInput.addEventListener('input', () => {
+      updateLyrics(songInput.value);
+    });
 
     // Effetti luminosi
     const canvas = document.getElementById('background');
