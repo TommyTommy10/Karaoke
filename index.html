@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karaoke Disco</title>
+  <style>
+    body {
+      background: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      overflow: hidden;
+    }
+    #lyrics {
+      font-size: 2em;
+      margin-top: 20px;
+    }
+    .effect {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <h1>Karaoke Disco</h1>
+  <div id="lyrics">Inserisci il titolo della canzone...</div>
+  <canvas id="background" class="effect"></canvas>
+  <script>
+    const lyricsDiv = document.getElementById('lyrics');
+    
+    // Esempio di testi delle canzoni
+    const songs = {
+      "example song": "Questi sono i testi della tua canzone!"
+    };
+
+    // Funzione per cambiare il testo della canzone
+    function updateLyrics(song) {
+      lyricsDiv.innerHTML = songs[song.toLowerCase()] || "Testo della canzone non trovato!";
+    }
+
+    // Cambia testo ogni 3 secondi come esempio
+    setInterval(() => {
+      updateLyrics('example song');
+    }, 3000);
+
+    // Effetti luminosi
+    const canvas = document.getElementById('background');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function drawEffect() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < 100; i++) {
+        ctx.beginPath();
+        ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 50, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`;
+        ctx.fill();
+      }
+      requestAnimationFrame(drawEffect);
+    }
+    drawEffect();
+  </script>
+</body>
+</html>
