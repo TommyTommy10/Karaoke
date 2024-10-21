@@ -41,16 +41,11 @@
     const songInput = document.getElementById('songInput');
     
     async function fetchLyrics(song) {
-      const apiUrl = `https://api.genius.com/search?q=${encodeURIComponent(song)}&access_token=YOUR_GENIUS_API_TOKEN`;
+      const apiUrl = `https://api.lyrics.ovh/v1/${song}`;
       const response = await fetch(apiUrl);
       if (response.ok) {
         const data = await response.json();
-        if (data.response.hits.length > 0) {
-          const lyricsPath = data.response.hits[0].result.url;
-          lyricsDiv.innerHTML = `Testo trovato su: <a href="${lyricsPath}" target="_blank">${lyricsPath}</a>`;
-        } else {
-          lyricsDiv.innerHTML = "Testo della canzone non trovato!";
-        }
+        lyricsDiv.innerHTML = data.lyrics || "Testo della canzone non trovato!";
       } else {
         lyricsDiv.innerHTML = "Errore nel recupero del testo!";
       }
