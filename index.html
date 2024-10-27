@@ -40,20 +40,28 @@
     const lyricsDiv = document.getElementById('lyrics');
     const songInput = document.getElementById('songInput');
     
-    async function fetchLyrics(song) {
-      const apiUrl = `https://api.lyrics.ovh/v1/${song}`;
-      const response = await fetch(apiUrl);
-      if (response.ok) {
-        const data = await response.json();
-        lyricsDiv.innerHTML = data.lyrics || "Testo della canzone non trovato!";
-      } else {
+    async function fetchLyrics(artist, title) {
+      const apiUrl = `https://api.lyrics.ovh/v1/${artist}/${title}`;
+      try {
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+          const data = await response.json();
+          lyricsDiv.innerHTML = data.lyrics.replace(/\n/g, '<br>') || "Testo della canzone non trovato!";
+        } else {
+          lyricsDiv.innerHTML = "Errore nel recupero del testo!";
+        }
+      } catch (error) {
         lyricsDiv.innerHTML = "Errore nel recupero del testo!";
       }
     }
 
-    songInput.addEventListener('input', async () => {
-      const songTitle = songInput.value;
-      fetchLyrics(songTitle);
+    songInput.addEventListener('change', async () => {
+      const [artist, title] = songInput.value.split(" - ");
+      if (artist && title) {
+        await fetchLyrics(artist, title);
+      } else {
+        lyricsDiv.innerHTML = "Per favore inserisci il titolo della canzone nel formato 'Artista - Titolo'";
+      }
     });
 
     // Effetti luminosi
