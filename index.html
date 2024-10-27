@@ -17,12 +17,13 @@
     #lyrics {
       font-size: 1.5em;
       margin: 20px;
-      height: 70vh;
+      height: 60vh;
       overflow-y: auto;
       background: rgba(0, 0, 0, 0.5);
       border-radius: 10px;
       padding: 20px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      display: none; /* Nasconde il div inizialmente */
     }
     .effect {
       position: absolute;
@@ -44,15 +45,37 @@
     #songInput:focus {
       outline: none;
     }
+    #loading {
+      font-size: 1.5em;
+      margin-top: 20px;
+      display: none; /* Nasconde il caricamento inizialmente */
+    }
+    .button {
+      font-size: 1em;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 20px;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: #666;
+    }
   </style>
 </head>
 <body>
   <input type="text" id="songInput" placeholder="Inserisci il titolo della canzone" />
+  <div id="loading">Caricamento...</div>
   <div id="lyrics">Inserisci il titolo della canzone...</div>
+  <button class="button" onclick="startLyrics()">Mostra Testo</button>
+  <button class="button" onclick="stopLyrics()">Nascondi Testo</button>
   <canvas id="background" class="effect"></canvas>
   <script>
     const lyricsDiv = document.getElementById('lyrics');
     const songInput = document.getElementById('songInput');
+    const loadingDiv = document.getElementById('loading');
     
     async function fetchLyrics(artist, title) {
       const apiUrl = `https://api.lyrics.ovh/v1/${artist}/${title}`;
@@ -66,17 +89,27 @@
         }
       } catch (error) {
         lyricsDiv.innerHTML = "Errore nel recupero del testo!";
+      } finally {
+        loadingDiv.style.display = 'none';
+        lyricsDiv.style.display = 'block';
       }
     }
 
-    songInput.addEventListener('change', async () => {
+    function startLyrics() {
       const [artist, title] = songInput.value.split(" - ");
       if (artist && title) {
-        await fetchLyrics(artist, title);
+        lyricsDiv.style.display = 'none';
+        loadingDiv.style.display = 'block';
+        fetchLyrics(artist, title);
       } else {
         lyricsDiv.innerHTML = "Per favore inserisci il titolo della canzone nel formato 'Artista - Titolo'";
+        lyricsDiv.style.display = 'block';
       }
-    });
+    }
+
+    function stopLyrics() {
+      lyricsDiv.style.display = 'none';
+    }
 
     // Effetti luminosi
     const canvas = document.getElementById('background');
