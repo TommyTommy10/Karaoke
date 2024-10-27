@@ -6,17 +6,23 @@
   <title>Karaoke App</title>
   <style>
     body {
-      background: black;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
       color: white;
-      font-family: Arial, sans-serif;
+      font-family: 'Roboto', sans-serif;
       text-align: center;
       overflow: hidden;
+      margin: 0;
+      padding: 0;
     }
     #lyrics {
-      font-size: 2em;
-      margin-top: 20px;
-      height: 70vh; /* Altezza massima del div */
-      overflow-y: auto; /* Abilita lo scroll verticale */
+      font-size: 1.5em;
+      margin: 20px;
+      height: 70vh;
+      overflow-y: auto;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
     .effect {
       position: absolute;
@@ -31,11 +37,17 @@
       padding: 10px;
       margin-top: 20px;
       width: 80%;
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    #songInput:focus {
+      outline: none;
     }
   </style>
 </head>
 <body>
-  <input type="text" id="songInput" placeholder="Inserisci il titolo della canzone">
+  <input type="text" id="songInput" placeholder="Inserisci il titolo della canzone" />
   <div id="lyrics">Inserisci il titolo della canzone...</div>
   <canvas id="background" class="effect"></canvas>
   <script>
