@@ -55,10 +55,25 @@
       outline: none;
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
     }
+    #fullscreenButton {
+      font-size: 1em;
+      padding: 10px 20px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    #fullscreenButton:hover {
+      background-color: #666;
+    }
   </style>
 </head>
 <body>
   <input type="text" id="songInput" placeholder="Artista - Titolo della canzone" />
+  <button id="fullscreenButton" onclick="toggleFullScreen()">Schermo Intero</button>
   <div id="lyrics">Inserisci il titolo della canzone...</div>
   <canvas id="background" class="effect"></canvas>
   <script>
@@ -88,6 +103,16 @@
         lyricsDiv.innerHTML = "Per favore inserisci il titolo della canzone nel formato 'Artista - Titolo'";
       }
     });
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
 
     // Effetti luminosi
     const canvas = document.getElementById('background');
