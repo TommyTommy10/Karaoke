@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Karaoke App</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
     body {
       background: linear-gradient(135deg, #1f1c2c, #928dab);
       color: #ececec;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       text-align: center;
       overflow: hidden;
       margin: 0;
@@ -99,7 +100,7 @@
       for (let i = 0; i < 150; i++) {
         ctx.beginPath();
         ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 50, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`;
+        ctx.fillStyle = `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.8)`; // Aumentata la luminosità
         ctx.fill();
       }
       requestAnimationFrame(drawEffect);
